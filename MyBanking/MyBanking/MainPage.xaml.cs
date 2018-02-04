@@ -26,5 +26,27 @@ namespace MyBanking
         {
             this.InitializeComponent();
         }
+
+        private void HamburgerButton_Click(object sender, RoutedEventArgs e)
+        {
+            MySplitView.IsPaneOpen = !MySplitView.IsPaneOpen;
+        }
+
+        private void IconsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (IconsListBox.SelectedIndex == 0)
+            {
+                TitleName.Text = "Home";
+            }
+            else if (IconsListBox.SelectedIndex == 1)
+            {
+                TitleName.Text = "Accounts";
+            }
+            else if (IconsListBox.SelectedIndex == 2)
+            {
+                TitleName.Text = "Transactions";
+            }
+
+        }
     }
 }

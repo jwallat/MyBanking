@@ -8,7 +8,45 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBox HorizontalAlignment="Left" Margin="705,325,0,0" Text="PENIS" VerticalAlignment="Top" FontSize="48"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
+        <RelativePanel>
+            <StackPanel Orientation="Horizontal">
+                <Button Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" Content="&#xE700;" FontSize="28" Click="HamburgerButton_Click" />
+                <TextBlock Name="TitleName" Text="Home" FontSize="36" HorizontalAlignment="Center" Margin="20,0,0,0"/>
+            </StackPanel>
+        </RelativePanel>
+        <SplitView Name="MySplitView" 
+                   Grid.Row="1"
+                   DisplayMode="CompactOverlay" 
+                   OpenPaneLength="250" 
+                   CompactPaneLength="50" 
+                   HorizontalAlignment="Left">
+            <SplitView.Pane>
+                <ListBox SelectedIndex="0" SelectionMode="Single" Name="IconsListBox" SelectionChanged="IconsListBox_SelectionChanged">
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE10F;" FontSize="28" />
+                            <TextBlock Text="Home" FontSize="28" Margin="20,0,0,0"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xF180;" FontSize="28" />
+                            <TextBlock Text="Accounts" FontSize="28" Margin="20,0,0,0"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE136;" FontSize="28" />
+                            <TextBlock Text="Transactions" FontSize="28" Margin="20,0,0,0"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                </ListBox>
+            </SplitView.Pane>
+        </SplitView>
     </Grid>
 </Page>
