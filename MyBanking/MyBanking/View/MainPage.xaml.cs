@@ -25,6 +25,8 @@ namespace MyBanking
         public MainPage()
         {
             this.InitializeComponent();
+            contentFrame.Navigate(typeof(HomePage));
+
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
@@ -34,17 +36,20 @@ namespace MyBanking
 
         private void IconsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (IconsListBox.SelectedIndex == 0)
+            if (Home.IsSelected)
             {
                 TitleName.Text = "Home";
+                contentFrame.Navigate(typeof(HomePage));
             }
-            else if (IconsListBox.SelectedIndex == 1)
+            else if (Accounts.IsSelected)
             {
                 TitleName.Text = "Accounts";
+                contentFrame.Navigate(typeof(AccountsPage));
             }
-            else if (IconsListBox.SelectedIndex == 2)
+            else if (Transactions.IsSelected)
             {
                 TitleName.Text = "Transactions";
+                contentFrame.Navigate(typeof(TransactionsPage));
             }
 
         }

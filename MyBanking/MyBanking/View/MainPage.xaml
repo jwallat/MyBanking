@@ -26,20 +26,20 @@
                    CompactPaneLength="50" 
                    HorizontalAlignment="Left">
             <SplitView.Pane>
-                <ListBox SelectedIndex="0" SelectionMode="Single" Name="IconsListBox" SelectionChanged="IconsListBox_SelectionChanged">
-                    <ListBoxItem>
+                <ListBox SelectionMode="Single" Name="IconsListBox" SelectionChanged="IconsListBox_SelectionChanged">
+                    <ListBoxItem Name="Home">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE10F;" FontSize="28" />
                             <TextBlock Text="Home" FontSize="28" Margin="20,0,0,0"/>
                         </StackPanel>
                     </ListBoxItem>
-                    <ListBoxItem>
+                    <ListBoxItem Name="Accounts">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xF180;" FontSize="28" />
                             <TextBlock Text="Accounts" FontSize="28" Margin="20,0,0,0"/>
                         </StackPanel>
                     </ListBoxItem>
-                    <ListBoxItem>
+                    <ListBoxItem Name="Transactions">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE136;" FontSize="28" />
                             <TextBlock Text="Transactions" FontSize="28" Margin="20,0,0,0"/>
@@ -47,6 +47,9 @@
                     </ListBoxItem>
                 </ListBox>
             </SplitView.Pane>
+            <SplitView.Content>
+                <Frame x:Name="contentFrame" />
+            </SplitView.Content>
         </SplitView>
     </Grid>
 </Page>
