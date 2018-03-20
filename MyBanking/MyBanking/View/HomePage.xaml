@@ -11,7 +11,9 @@
         <RelativePanel>
             <TextBlock Text="Free Money:" FontSize="36" Margin="50,50,0,0" />
             <TextBlock Name="unboundCapitalTextBlock" Text="Peter" FontSize="36" Margin="330,50,0,0" />
+            <Button Content="Connect to DB" HorizontalAlignment="Center" Click="Button_Click" VerticalAlignment="Stretch" Width="159" RenderTransformOrigin="13.415,11.75" Margin="108,146,-202,-200"/>
+            <TextBlock Name="DBConnectionTextBlock" HorizontalAlignment="Left" Height="376" Text="DB Connection" TextWrapping="Wrap" VerticalAlignment="Top" Width="468" Margin="604,146,-1010,-502" FontSize="36"/>
         </RelativePanel>
-        
+
     </Grid>
 </Page>

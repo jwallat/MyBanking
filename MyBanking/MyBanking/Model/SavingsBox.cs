@@ -13,19 +13,17 @@ namespace MyBanking
      */
     class SavingsBox : Account
     {
-        private int liveCycle; // flush afterwards
-        private double balance; // current money in the savings box
-        private double targetBalance; // amount of money that is targeted 
-
         public SavingsBox(String name, int liveCycle, double balance, double targetBalance) : base(name, balance)
         {
-            this.liveCycle = liveCycle;
+            this.LiveCycle = liveCycle;
             base.Balance = 0;
-            this.targetBalance = targetBalance;
+            this.TargetBalance = targetBalance;
         }
 
-        public int LiveCycle { get => liveCycle; set => liveCycle = value; }
-        public new double Balance { get => balance; set => balance = value; }
-        public double TargetBalance { get => targetBalance; set => targetBalance = value; }
+        public int LiveCycle { get; set; }
+
+        public new double Balance { get; set; }
+
+        public double TargetBalance { get; set; }
     }
 }

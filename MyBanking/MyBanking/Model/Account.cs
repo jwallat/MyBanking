@@ -12,30 +12,28 @@ namespace MyBanking
      */
     class Account
     {
-        private String name; // name of the account
-        private double balance; // the balance of the bank account
-        private double freeBalance; // the current unbound balance
-        private List<ReoccuringTransaction> reoccuringTransactions;
-        private List<Transaction> transactionHistory;
-
         public Account(string name, double balance)
         {
-            this.name = name;
-            this.balance = balance;
+            this.Name = name;
+            this.Balance = balance;
         }
 
-        public double Balance { get => balance; set => balance = value; }
-        public double FreeBalance { get => freeBalance; set => freeBalance = value; }
-        public string Name { get => name; set => name = value; }
-        public List<ReoccuringTransaction> ReoccuringTransactions { get => reoccuringTransactions; set => reoccuringTransactions = value; }
-        public List<Transaction> TransactionHistory { get => transactionHistory; set => transactionHistory = value; }
+        public double Balance { get; set; }
 
-        public void addTransaction(Transaction t)
+        public double FreeBalance { get; set; }
+
+        public string Name { get; set; }
+
+        public List<ReoccuringTransaction> ReoccuringTransactions { get; set; }
+
+        public List<Transaction> TransactionHistory { get; set; }
+
+        public void AddTransaction(Transaction t)
         {
             TransactionHistory.Add(t);
         }
 
-        public void addReoccuringTransaction(ReoccuringTransaction rt)
+        public void AddReoccuringTransaction(ReoccuringTransaction rt)
         {
             ReoccuringTransactions.Add(rt);
         }

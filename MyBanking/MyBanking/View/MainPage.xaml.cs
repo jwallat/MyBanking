@@ -44,7 +44,7 @@ namespace MyBanking
             else if (Accounts.IsSelected)
             {
                 TitleName.Text = "Accounts";
-                contentFrame.Navigate(typeof(AccountsPage));
+                contentFrame.Navigate(typeof(View.AccountsPage));
             }
             else if (Transactions.IsSelected)
             {
