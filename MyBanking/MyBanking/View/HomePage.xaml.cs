@@ -27,7 +27,7 @@ namespace MyBanking
     {
         private const string ConnectionString =
             "Server=swizzlepi.ddns.net;Database=mybanking;Uid=mybanking;Pwd=mybanking;";
-
+        private List<Account> _accounts = new List<Account>();
         public HomePage()
         {
             this.InitializeComponent();
@@ -44,15 +44,31 @@ namespace MyBanking
                     connection.Open();
                     DBConnectionTextBlock.Text = connection.State.ToString();
                     MySqlCommand getCommand = connection.CreateCommand();
-                    getCommand.CommandText = "SELECT * FROM Transaction t WHERE t.reciever = \"Emsland\"";
+                    getCommand.CommandText = "SELECT * FROM Account a WHERE a.owner = 'Jonas'";
                     using (MySqlDataReader reader = getCommand.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            DBConnectionTextBlock.Text += reader.GetString("info");
-                            Debug.WriteLine(reader.GetString("info"));
+                            String accountName = reader.GetString("name");
+                            Account a = new Account(accountName, 0);
+                            _accounts.Add(a);
+                            Debug.WriteLine("Account " + accountName + " created");
+
+                            MySqlCommand getTransactionsCommand = connection.CreateCommand();
+                            // find all transactions of the user
+                            getTransactionsCommand.CommandText = "SELECT * FROM 'Transaction' t WHERE t.sender = '" + accountName 
+                                                                    + "' OR t.reciever = '" + accountName + "'";
+                            using (MySqlDataReader reader2 = getTransactionsCommand.ExecuteReader())
+                            {
+                                while (reader2.Read())
+                                {
+                                    Debug.WriteLine("Transaction " + reader.GetString("id") + " created");
+
+                                }
+                            }
                         }
                     }
+                    
                     connection.Close();
                 }
             }
