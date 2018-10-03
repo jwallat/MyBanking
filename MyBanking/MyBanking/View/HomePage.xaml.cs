@@ -15,6 +15,9 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 using MySql.Data.MySqlClient;
+using MyBanking.Model;
+using MyBanking.Util;
+using MyBanking.View;
 
 // Die Elementvorlage "Leere Seite" wird unter https://go.microsoft.com/fwlink/?LinkId=234238 dokumentiert.
 
@@ -25,59 +28,24 @@ namespace MyBanking
     /// </summary>
     public sealed partial class HomePage : Page
     {
-        private const string ConnectionString =
-            "Server=swizzlepi.ddns.net;Database=mybanking;Uid=mybanking;Pwd=mybanking;";
         private List<Account> _accounts = new List<Account>();
+        private DatabaseHandler _dbHandler = new DatabaseHandler();
+
         public HomePage()
         {
             this.InitializeComponent();
         }
 
+        /**
+         * Loads all the saved information into the app.
+         */
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Debug.WriteLine("Click");
-            try
-            {
 
-                using (MySqlConnection connection = new MySqlConnection(ConnectionString))
-                {
-                    connection.Open();
-                    DBConnectionTextBlock.Text = connection.State.ToString();
-                    MySqlCommand getCommand = connection.CreateCommand();
-                    getCommand.CommandText = "SELECT * FROM Account a WHERE a.owner = 'Jonas'";
-                    using (MySqlDataReader reader = getCommand.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            String accountName = reader.GetString("name");
-                            Account a = new Account(accountName, 0);
-                            _accounts.Add(a);
-                            Debug.WriteLine("Account " + accountName + " created");
-
-                            MySqlCommand getTransactionsCommand = connection.CreateCommand();
-                            // find all transactions of the user
-                            getTransactionsCommand.CommandText = "SELECT * FROM 'Transaction' t WHERE t.sender = '" + accountName 
-                                                                    + "' OR t.reciever = '" + accountName + "'";
-                            using (MySqlDataReader reader2 = getTransactionsCommand.ExecuteReader())
-                            {
-                                while (reader2.Read())
-                                {
-                                    Debug.WriteLine("Transaction " + reader.GetString("id") + " created");
-
-                                }
-                            }
-                        }
-                    }
-                    
-                    connection.Close();
-                }
-            }
-            catch (MySqlException ex)
-            {
-                // Handle it :) 
-                Debug.WriteLine(ex.StackTrace);
-            }
-
+            _accounts = _dbHandler.GetAccounts();
+            
+            Frame.Navigate(typeof(AccountsPage), _accounts);
         }
     }
 }

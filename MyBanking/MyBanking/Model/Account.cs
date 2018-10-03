@@ -12,13 +12,20 @@ namespace MyBanking
      */
     class Account
     {
+        private double _balance;
+
         public Account(string name, double balance)
         {
-            this.Name = name;
-            this.Balance = balance;
+            Name = name;
+            Balance = balance;
+            TransactionHistory = new List<Transaction>();
         }
 
-        public double Balance { get; set; }
+        public double Balance
+        {
+            get => TransactionHistory.Sum(x => x.Amount);
+            set => _balance = value;
+        }
 
         public double FreeBalance { get; set; }
 

@@ -6,16 +6,11 @@ using System.Threading.Tasks;
 
 namespace MyBanking.Model
 {
-    /**
-     * Basic class to model transactions
-     */
+    /// <summary>
+    /// Data class to model transactions
+    /// </summary>
     class Transaction
     {
-        private DateTime date; // Date of the transaction
-        private Account sender; // Account which sends the money
-        private Account reciever; // Account which recieves the money
-        private double amount; // the amount of money, that is 
-
         public Transaction(Account sender, Account reciever, double amount, DateTime date)
         {
             Sender = sender;
@@ -24,9 +19,21 @@ namespace MyBanking.Model
             Date = date;
         }
 
-        public DateTime Date { get => date; set => date = value; }
-        public double Amount { get => amount; set => amount = value; }
-        internal Account Sender { get => sender; set => sender = value; }
-        internal Account Reciever { get => reciever; set => reciever = value; }
+        public int Id { get; set; }
+
+        public DateTime Date { get; set; }
+
+        public double Amount { get; set; }
+
+        internal Account Sender { get; set; }
+
+        internal Account Reciever { get; set; }
+
+        public string Info { get; set; }
+
+        public override string ToString()
+        {
+            return "Transaction(" + Sender.Name + ", " + Reciever.Name + ", " + Amount + ", " + Date + ")";
+        }
     }
 }

@@ -8,7 +8,6 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBox HorizontalAlignment="Left" Margin="533,594,0,0" Text="Accounts" VerticalAlignment="Top"/>
-
+        <ListView x:Name="accountsList" HorizontalAlignment="Left" Height="448" Margin="20,20,20,20" VerticalAlignment="Top" Width="1768" ManipulationMode="None" SelectionChanged="accountsList_SelectionChanged" Background="{ThemeResource ContentDialogBackgroundThemeBrush}"/>
     </Grid>
 </Page>
