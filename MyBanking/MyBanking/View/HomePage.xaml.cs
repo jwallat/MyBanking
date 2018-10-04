@@ -43,9 +43,10 @@ namespace MyBanking
         {
             Debug.WriteLine("Click");
 
-            _accounts = _dbHandler.GetAccounts();
+            BankingModel.Accounts = _dbHandler.GetAccounts();
+            BankingModel.Transactions = _dbHandler.GetTransactions();
             
-            Frame.Navigate(typeof(AccountsPage), _accounts);
+            Frame.Navigate(typeof(AccountsPage));
         }
     }
 }

@@ -10,7 +10,7 @@ namespace MyBanking
     /**
      * Class that models an bank account with all it's features and the contained savings boxes.
      */
-    class Account
+    public class Account
     {
         private double _balance;
 

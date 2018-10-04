@@ -9,7 +9,7 @@ namespace MyBanking.Model
     /// <summary>
     /// Data class to model transactions
     /// </summary>
-    class Transaction
+    public class Transaction
     {
         public Transaction(Account sender, Account reciever, double amount, DateTime date)
         {

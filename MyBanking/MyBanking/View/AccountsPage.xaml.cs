@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using Windows.UI;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -22,26 +23,43 @@ namespace MyBanking.View
         {
             base.OnNavigatedTo(e);
 
-            List<Account> accounts = (List<Account>) e.Parameter;
-            if (accounts != null)
-            { 
-                foreach (Account a in accounts)
-                {
-                    ListViewItem i = new ListViewItem();
-                    i.Content = a.Name;
-                    accountsList.Items.Add(i);
-                    Debug.WriteLine("ListViewItem added " + a.Name);
-                }
+            foreach (Account a in BankingModel.Accounts)
+            {
+                AddAccountToListView(a);
+            }
 
                 //accountsList.Items.Add(accounts);
-            }
-            
-            
         }
 
-        private void accountsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void AddAccountToListView(Account a)
         {
+            ListViewItem i = new ListViewItem();
+            i.Content = a.Name + "\t\t\t" + "Balance: " + a.Balance;
+            AccountsList.Items.Add(i);
+            Debug.WriteLine("ListViewItem added " + a.Name + ", Balance: " + a.Balance);
+        }
 
+        private void AccountsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Debug.WriteLine("Selection changed");
+        }
+
+        private void AddAccount(object sender, RoutedEventArgs e)
+        { 
+            
+
+            string name = AccountNameTextBox.Text;
+            if (name.Equals(""))
+            {
+                Debug.WriteLine("Please specify an account name!");
+            }
+            else
+            {
+                Account a = new Account(name, 0);
+                BankingModel.AddAccount(a);
+                AddAccountToListView(a);
+                Debug.WriteLine("Account added: " + a.Name);
+            }
         }
     }
 }

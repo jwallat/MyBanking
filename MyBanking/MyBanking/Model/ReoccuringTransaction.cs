@@ -9,7 +9,7 @@ namespace MyBanking.Model
     /**
      * Special reoccuring transactions. Used for fixed income/expenditure.
      */
-    class ReoccuringTransaction : Transaction
+    public class ReoccuringTransaction : Transaction
     {
         private String reoccurenceRate; // the rate in which the transaction reoccurs
 

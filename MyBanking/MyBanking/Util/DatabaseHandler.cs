@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Composition.Interactions;
 using Windows.UI.Xaml.Controls;
 using MyBanking.Model;
 using MyBanking.View;
@@ -27,7 +28,7 @@ namespace MyBanking.Util
         /// Fetches and returns a list of all transactions of the user contained in the database.
         /// </summary>
         /// <returns>List of transactions</returns>
-        private List<Transaction> GetTransactions()
+        public List<Transaction> GetTransactions()
         {
             List<Transaction> transactions = new List<Transaction>();
 
@@ -136,9 +137,11 @@ namespace MyBanking.Util
                 {
                     connection.Open();
 
-                    MySqlCommand getCommand = connection.CreateCommand();
-                    getCommand.CommandText = "INSERT INTO 'Account' ('name', 'owner') VALUES('" + account.Name + "', '" + _user + "')";
-                    MySqlDataReader reader = getCommand.ExecuteReader();
+                    MySqlCommand command = connection.CreateCommand();
+                    command.CommandText = "INSERT INTO Account (name, owner) VALUES(?name, ?owner)";
+                    command.Parameters.AddWithValue("?name", account.Name);
+                    command.Parameters.AddWithValue("?owner", _user);
+                    command.ExecuteNonQueryAsync();
                     connection.Close();
                 }            
             }
@@ -160,10 +163,19 @@ namespace MyBanking.Util
                 {
                     connection.Open();
 
-                    MySqlCommand getCommand = connection.CreateCommand();
-                    getCommand.CommandText = "INSERT INTO 'Transaction' ('id', 'sender', 'reciever', 'date', 'amount', 'reoccuring', 'frequency', 'info') " +
-                                             " VALUES ('" + t.Id + "', '" + t.Sender + "', '" + t.Reciever + "', '" + t.Date + "', '" + t.Amount + "', '0', '0', '" + t.Info + "');";
-                    MySqlDataReader reader = getCommand.ExecuteReader();
+                    MySqlCommand command = connection.CreateCommand();
+                    command.CommandText = "INSERT INTO Transaction (id, sender, reciever, date, amount, reoccuring, frequency, info) " +
+                                             " VALUES (?id, ?sender, ?reciever, ?date, ?amount, ?reoccuring, ?frequency, ?info);";
+                    command.Parameters.AddWithValue("?id", t.Id);
+                    command.Parameters.AddWithValue("?sender", t.Sender);
+                    command.Parameters.AddWithValue("?reciever", t.Reciever);
+                    command.Parameters.AddWithValue("?date", t.Date);
+                    command.Parameters.AddWithValue("?amount", t.Amount);
+                    command.Parameters.AddWithValue("?reoccuring", 0);
+                    command.Parameters.AddWithValue("?frequency", 0);
+                    command.Parameters.AddWithValue("?info", t.Info);
+                    //command.ExecuteNonQuery();
+                    command.ExecuteNonQueryAsync();
                     connection.Close();
                 }
             }
