@@ -39,15 +39,32 @@ namespace MyBanking.View
             Debug.WriteLine("ListViewItem added " + a.Name + ", Balance: " + a.Balance);
         }
 
+        private void UpdateListView()
+        {
+            AccountsList.Items.Clear();
+            foreach (Account a in BankingModel.Accounts)
+            {
+                AddAccountToListView(a);
+            }
+        }
+
         private void AccountsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Debug.WriteLine("Selection changed");
+            if (AccountsList.SelectedItem != null)
+            {
+                string name = (string) ((ListViewItem) AccountsList.SelectedItem).Content;
+                name = name.Split("\t")[0];
+                SelectedAccountTextBlock.Text = name;
+            }
+            else
+            {
+                SelectedAccountTextBlock.Text = "";
+            }
         }
 
         private void AddAccount(object sender, RoutedEventArgs e)
         { 
-            
-
             string name = AccountNameTextBox.Text;
             if (name.Equals(""))
             {
@@ -57,9 +74,19 @@ namespace MyBanking.View
             {
                 Account a = new Account(name, 0);
                 BankingModel.AddAccount(a);
-                AddAccountToListView(a);
+                UpdateListView();
                 Debug.WriteLine("Account added: " + a.Name);
             }
+        }
+
+        private void DeleteAccount(object sender, RoutedEventArgs e)
+        {
+            string name = SelectedAccountTextBlock.Text;
+            name = name.Split("\t")[0];
+            Account a = BankingModel.Accounts.Find(x => x.Name.Equals(name));
+            BankingModel.DeleteAccount(a);
+
+            UpdateListView();
         }
     }
 }

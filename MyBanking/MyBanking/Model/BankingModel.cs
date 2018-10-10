@@ -30,5 +30,11 @@ namespace MyBanking
             Accounts.Add(a);
             DbHandler.AddAcount(a);
         }
+
+        public static void DeleteAccount(Account a)
+        {
+            Accounts.Remove(a);
+            DbHandler.RemoveAccount(a);
+        }
     }
 }

@@ -150,6 +150,32 @@ namespace MyBanking.Util
                 Debug.WriteLine(ex.StackTrace);
             }
         }
+        
+        /// <summary>
+        /// Removes a specific Account from the database.
+        /// </summary>
+        /// <param name="a"></param>
+        public void RemoveAccount(Account a)
+        {
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+                {
+                    connection.Open();
+
+                    MySqlCommand command = connection.CreateCommand();
+                    command.CommandText = "DELETE FROM Account WHERE Account.name = ?name";
+                    command.Parameters.AddWithValue("?name", a.Name);
+                    //command.ExecuteNonQuery();
+                    command.ExecuteNonQueryAsync();
+                    connection.Close();
+                }
+            }
+            catch (MySqlException ex)
+            {
+                Debug.WriteLine(ex.StackTrace);
+            }
+        }
 
         /// <summary>
         /// Adds a new transaction to the database.
@@ -184,6 +210,5 @@ namespace MyBanking.Util
                 Debug.WriteLine(ex.StackTrace);
             }
         }
-
     }
 }
