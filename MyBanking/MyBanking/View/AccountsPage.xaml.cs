@@ -39,7 +39,7 @@ namespace MyBanking.View
             Debug.WriteLine("ListViewItem added " + a.Name + ", Balance: " + a.Balance);
         }
 
-        private void UpdateListView()
+        private void UpdateAccountsListView()
         {
             AccountsList.Items.Clear();
             foreach (Account a in BankingModel.Accounts)
@@ -74,7 +74,7 @@ namespace MyBanking.View
             {
                 Account a = new Account(name, 0);
                 BankingModel.AddAccount(a);
-                UpdateListView();
+                UpdateAccountsListView();
                 Debug.WriteLine("Account added: " + a.Name);
             }
         }
@@ -86,7 +86,7 @@ namespace MyBanking.View
             Account a = BankingModel.Accounts.Find(x => x.Name.Equals(name));
             BankingModel.DeleteAccount(a);
 
-            UpdateListView();
+            UpdateAccountsListView();
         }
     }
 }
